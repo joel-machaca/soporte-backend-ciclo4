@@ -4,49 +4,42 @@ import org.springframework.stereotype.Repository;
 import pe.edu.idat.soporte.soportebackend.dto.SolicitudDTO;
 import pe.edu.idat.soporte.soportebackend.model.Solicitud;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class SolicitudRepository implements ISolicitudRepository{
-    private final List<Solicitud> bdSolicitud=new ArrayList<>();
+    private final Map<Integer,Solicitud> bdSolicitud=new HashMap<>();
     private final AtomicInteger secuencial =new AtomicInteger(0);
 
 
     @Override
-    public List<Solicitud> findAll() {
-        return bdSolicitud;
+    public List<Solicitud> buscarTodo() {
+        return new ArrayList<>(bdSolicitud.values());
     }
 
     @Override
-    public void save(Solicitud solicitud) {
-        if(solicitud.getId()==null){
-            solicitud.setId(secuencial.incrementAndGet());
+    public void guardar(Solicitud solicitud) {
+        if(solicitud.getIdSolicitud()==null){
+            solicitud.setIdSolicitud(secuencial.incrementAndGet());
         }
-        bdSolicitud.add(solicitud);
+        bdSolicitud.put(solicitud.getIdSolicitud(), solicitud);
     }
 
     @Override
-    public Optional<Solicitud> findById(Integer id) {
-        return bdSolicitud.stream()
-                .filter(solicitud -> solicitud.getId().equals(id))
-                .findFirst();
+    public Optional<Solicitud> buscarPorId(Integer id) {
+        return Optional.ofNullable(bdSolicitud.get(id));
     }
 
     @Override
-    public void update(Solicitud solicitud) {
-        for(int i=0;i<bdSolicitud.size();i++){
-            if (bdSolicitud.get(i).getId().equals(solicitud.getId())){
-                bdSolicitud.set(i,solicitud);
-                break;
-            }
+    public void actualizar(Solicitud solicitud) {
+        if(bdSolicitud.containsKey(solicitud.getIdSolicitud())){
+            bdSolicitud.put(solicitud.getIdSolicitud(),solicitud);
         }
     }
 
     @Override
-    public void delete(Integer id) {
-        bdSolicitud.removeIf(solicitud -> solicitud.getId().equals(id));
+    public void eliminar(Integer id) {
+        bdSolicitud.remove(id);
     }
 }

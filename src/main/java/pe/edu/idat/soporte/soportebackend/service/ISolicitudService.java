@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ISolicitudService {
     List<Solicitud> obtenerSolicitudes();
     void registrarSolicitud(SolicitudDTO solicitud);
-    Optional<Solicitud> consultarPorId(int id);
+    Solicitud consultarPorId(Integer id);
     void actualizarSolicitud(Integer id,SolicitudDTO solicituddto);
     void eliminarSolicitud(Integer id);
 }

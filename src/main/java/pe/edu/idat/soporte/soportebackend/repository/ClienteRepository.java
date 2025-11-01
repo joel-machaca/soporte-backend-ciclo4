@@ -16,7 +16,7 @@ public class ClienteRepository implements IClienteRepository{
         bdCliente.add(new Cliente(2,"87654321","laura","perez","laura01@gmail.com","975846123"));
     }
     @Override
-    public Optional<Cliente> findById(Integer id) {
+    public Optional<Cliente> buscarPorId(Integer id) {
         return bdCliente.stream()
                 .filter(cliente -> cliente.getId()== id)
                 .findFirst();

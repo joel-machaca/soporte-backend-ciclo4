@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IGenericRepository<T>{
-    List<T> findAll();
-    void save(T solicitud);
-    Optional<T> findById(Integer id);
-    void update(T solicitud);
-    void delete(Integer id);
+    List<T> buscarTodo();
+    void guardar(T solicitud);
+    Optional<T> buscarPorId(Integer id);
+    void actualizar(T solicitud);
+    void eliminar(Integer id);
 }

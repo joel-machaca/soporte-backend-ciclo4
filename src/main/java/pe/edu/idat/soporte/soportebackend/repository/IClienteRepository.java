@@ -9,9 +9,7 @@ import java.util.Optional;
 
 
 public interface IClienteRepository {
-    //    List<Tecnico> findAll();
-//    void save(Tecnico solicitud);
-    Optional<Cliente> findById(Integer id);
-//    void update(Tecnico solicitud);
-//    void delete(Integer id);
+
+    Optional<Cliente> buscarPorId(Integer id);
+
 }

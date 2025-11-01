@@ -1,6 +1,7 @@
 package pe.edu.idat.soporte.soportebackend.service;
 import org.springframework.stereotype.Service;
 import pe.edu.idat.soporte.soportebackend.dto.SolicitudDTO;
+import pe.edu.idat.soporte.soportebackend.exceptions.RecursoNoEncontradoException;
 import pe.edu.idat.soporte.soportebackend.model.Cliente;
 import pe.edu.idat.soporte.soportebackend.model.EstadoSolicitud;
 import pe.edu.idat.soporte.soportebackend.model.Solicitud;
@@ -29,14 +30,14 @@ public class SolicitudService implements ISolicitudService{
 
     @Override
     public List<Solicitud> obtenerSolicitudes() {
-        return this.SolicitudRepo.findAll();
+        return this.SolicitudRepo.buscarTodo();
     }
 
     @Override
     public void registrarSolicitud(SolicitudDTO solicituddto) {
 
-        Tecnico t1=TecnicoRepo.findById(solicituddto.getIdTecnico()).orElseThrow(()->new RuntimeException("tecnico no encontrado"));
-        Cliente c1=ClienteRepo.findById(solicituddto.getIdCliente()).orElseThrow(()->new RuntimeException("cliente no encontrado"));
+        Tecnico t1=TecnicoRepo.buscarPorId(solicituddto.getIdTecnico()).orElseThrow(()->new RecursoNoEncontradoException("tecnico no encontrado"));
+        Cliente c1=ClienteRepo.buscarPorId(solicituddto.getIdCliente()).orElseThrow(()->new RecursoNoEncontradoException("cliente no encontrado"));
 
         Solicitud s =Solicitud.builder()
                 .titulo(solicituddto.getTitulo())
@@ -46,28 +47,29 @@ public class SolicitudService implements ISolicitudService{
                 .fechaCreacion(LocalDate.now())
                 .estado(EstadoSolicitud.PENDIENTE)
                 .build();
-        this.SolicitudRepo.save(s);
+        this.SolicitudRepo.guardar(s);
     }
 
     @Override
-    public Optional<Solicitud> consultarPorId(int id) {
-        return this.SolicitudRepo.findById(id);
+    public Solicitud consultarPorId(Integer id) {
+        return this.SolicitudRepo.buscarPorId(id).orElseThrow(()-> new RecursoNoEncontradoException("solicitud no encontrada con el id: " + id));
     }
 
     @Override
     public void actualizarSolicitud(Integer id,SolicitudDTO solicituddto) {
-        Solicitud existeSolicitud=this.SolicitudRepo.findById(id).orElseThrow(()-> new RuntimeException("solicitud no encontrada"));
-        Tecnico t1 = TecnicoRepo.findById(solicituddto.getIdTecnico()).orElseThrow(() -> new RuntimeException("tecnico no encontrado"));
-        Cliente c1 = ClienteRepo.findById(solicituddto.getIdCliente()).orElseThrow(() -> new RuntimeException("cliente no encontrado"));
+        Solicitud existeSolicitud=this.SolicitudRepo.buscarPorId(id).orElseThrow(()-> new RecursoNoEncontradoException("solicitud no encontrada"));
+        Tecnico t1 = TecnicoRepo.buscarPorId(solicituddto.getIdTecnico()).orElseThrow(() -> new RecursoNoEncontradoException("tecnico no encontrado"));
+        Cliente c1 = ClienteRepo.buscarPorId(solicituddto.getIdCliente()).orElseThrow(() -> new RecursoNoEncontradoException("cliente no encontrado"));
 
         existeSolicitud.setTitulo(solicituddto.getTitulo());
         existeSolicitud.setDescripcion(solicituddto.getDescripcion());
         existeSolicitud.setCliente(c1);
         existeSolicitud.setTecnico(t1);
-        this.SolicitudRepo.update(existeSolicitud);
+        this.SolicitudRepo.actualizar(existeSolicitud);
     }
+
     @Override
     public void eliminarSolicitud(Integer id) {
-        this.SolicitudRepo.delete(id);
+        this.SolicitudRepo.eliminar(id);
     }
 }

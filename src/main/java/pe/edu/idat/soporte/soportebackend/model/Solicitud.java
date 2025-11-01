@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Solicitud {
-    private Integer id;
+    private Integer idSolicitud;
 
     @NotBlank(message = "El titulo es obligatorio")
     @Size(min = 3, max = 50,message = "el titulo debe tener entre 3 y 50 caracteres")

@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ITecnicoRepository{
-//    List<Tecnico> findAll();
-//    void save(Tecnico solicitud);
-    Optional<Tecnico> findById(Integer id);
-//    void update(Tecnico solicitud);
-//    void delete(Integer id);
+
+    Optional<Tecnico> buscarPorId(Integer id);
+
 }

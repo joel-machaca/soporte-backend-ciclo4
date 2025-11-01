@@ -34,9 +34,8 @@ public class SolicitudController{
 
     @GetMapping("/{id}")
     public ResponseEntity<Solicitud> consultarPorId(@PathVariable int id){
-        return this.ISolicitudService.consultarPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Solicitud solicitud=this.ISolicitudService.consultarPorId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(solicitud);
     }
 
 

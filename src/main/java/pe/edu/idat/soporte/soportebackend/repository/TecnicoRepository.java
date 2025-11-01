@@ -18,7 +18,7 @@ public class TecnicoRepository implements ITecnicoRepository{
     }
 
     @Override
-    public Optional<Tecnico> findById(Integer id) {
+    public Optional<Tecnico> buscarPorId(Integer id) {
         return bdTecnico.stream()
                 .filter(tecnico -> tecnico.getId()== id)
                 .findFirst();
