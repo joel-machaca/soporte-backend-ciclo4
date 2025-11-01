@@ -10,6 +10,6 @@ public interface ISolicitudService {
     List<Solicitud> obtenerSolicitudes();
     void registrarSolicitud(SolicitudDTO solicitud);
     Optional<Solicitud> consultarPorId(int id);
-    void actualizarSolicitud(SolicitudDTO solicituddto);
+    void actualizarSolicitud(Integer id,SolicitudDTO solicituddto);
     void eliminarSolicitud(Integer id);
 }

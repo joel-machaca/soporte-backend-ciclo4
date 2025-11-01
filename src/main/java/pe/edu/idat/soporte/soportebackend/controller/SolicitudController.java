@@ -21,18 +21,18 @@ public class SolicitudController{
         this.ISolicitudService=ISolicitudService;
     }
 
-    @GetMapping("/todos")
+    @GetMapping
     public ResponseEntity<List<Solicitud>> obtenerSolicitudes(){
         return ResponseEntity.ok(this.ISolicitudService.obtenerSolicitudes());
     }
 
-    @PostMapping("/registrar")
+    @PostMapping
     public ResponseEntity<SolicitudDTO> registrarSolicitud(@Valid @RequestBody SolicitudDTO solicitud){
         this.ISolicitudService.registrarSolicitud(solicitud);
         return ResponseEntity.status(HttpStatus.CREATED).body(solicitud);
     }
 
-    @GetMapping("/consultar/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Solicitud> consultarPorId(@PathVariable int id){
         return this.ISolicitudService.consultarPorId(id)
                 .map(ResponseEntity::ok)
@@ -40,14 +40,14 @@ public class SolicitudController{
     }
 
 
-    @PutMapping("/editar")
-    public ResponseEntity<String> actualizarSolicitud(@Valid @RequestBody SolicitudDTO solicitud){
-        this.ISolicitudService.actualizarSolicitud(solicitud);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> actualizarSolicitud( @PathVariable Integer id, @Valid @RequestBody SolicitudDTO solicitudDto){
+        this.ISolicitudService.actualizarSolicitud(id,solicitudDto);
         return ResponseEntity.ok("se actualizo correctamente");
     }
 
-    @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<String> eliminarSolicitud(@PathVariable int id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminarSolicitud(@PathVariable Integer id){
         this.ISolicitudService.eliminarSolicitud(id);
         return ResponseEntity.ok("solicitud eliminada ");
     }

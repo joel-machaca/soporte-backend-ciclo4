@@ -55,17 +55,16 @@ public class SolicitudService implements ISolicitudService{
     }
 
     @Override
-    public void actualizarSolicitud(SolicitudDTO solicituddto) {
+    public void actualizarSolicitud(Integer id,SolicitudDTO solicituddto) {
+        Solicitud existeSolicitud=this.SolicitudRepo.findById(id).orElseThrow(()-> new RuntimeException("solicitud no encontrada"));
         Tecnico t1 = TecnicoRepo.findById(solicituddto.getIdTecnico()).orElseThrow(() -> new RuntimeException("tecnico no encontrado"));
         Cliente c1 = ClienteRepo.findById(solicituddto.getIdCliente()).orElseThrow(() -> new RuntimeException("cliente no encontrado"));
 
-        Solicitud s = Solicitud.builder()
-                .titulo(solicituddto.getTitulo())
-                .descripcion(solicituddto.getDescripcion())
-                .cliente(c1)
-                .tecnico(t1)
-                .build();
-        this.SolicitudRepo.update(s);
+        existeSolicitud.setTitulo(solicituddto.getTitulo());
+        existeSolicitud.setDescripcion(solicituddto.getDescripcion());
+        existeSolicitud.setCliente(c1);
+        existeSolicitud.setTecnico(t1);
+        this.SolicitudRepo.update(existeSolicitud);
     }
     @Override
     public void eliminarSolicitud(Integer id) {
