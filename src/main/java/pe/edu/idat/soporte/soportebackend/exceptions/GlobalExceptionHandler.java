@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .error("Error interno del servidor")
                 .mensaje(ex.getMessage())
-                .path(req.getDescription(false))
+                .path(req.getDescription(false).replace("uri=",""))
                 .build();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }

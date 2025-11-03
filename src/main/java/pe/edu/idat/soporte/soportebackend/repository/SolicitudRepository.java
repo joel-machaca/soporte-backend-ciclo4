@@ -1,7 +1,7 @@
 package pe.edu.idat.soporte.soportebackend.repository;
 
 import org.springframework.stereotype.Repository;
-import pe.edu.idat.soporte.soportebackend.dto.SolicitudDTO;
+
 import pe.edu.idat.soporte.soportebackend.model.Solicitud;
 
 import java.util.*;

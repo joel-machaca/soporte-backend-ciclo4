@@ -1,8 +1,4 @@
 package pe.edu.idat.soporte.soportebackend.model;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,8 +11,6 @@ public class Tecnico extends Persona{
         this.especialidad = especialidad;
     }
 
-    @NotBlank(message = "La especialidad es obligatoria")
-    @Size(min = 2 ,max = 100, message = "La especialidad debe tener entre 5 y 100 caracteres")
     private String especialidad;
 
 

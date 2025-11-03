@@ -14,10 +14,11 @@ import pe.edu.idat.soporte.soportebackend.repository.TecnicoRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class SolicitudService implements ISolicitudService{
+
     private final SolicitudRepository SolicitudRepo;
     private final TecnicoRepository TecnicoRepo;
     private final ClienteRepository ClienteRepo;
@@ -58,8 +59,8 @@ public class SolicitudService implements ISolicitudService{
     @Override
     public void actualizarSolicitud(Integer id,SolicitudDTO solicituddto) {
         Solicitud existeSolicitud=this.SolicitudRepo.buscarPorId(id).orElseThrow(()-> new RecursoNoEncontradoException("solicitud no encontrada"));
-        Tecnico t1 = TecnicoRepo.buscarPorId(solicituddto.getIdTecnico()).orElseThrow(() -> new RecursoNoEncontradoException("tecnico no encontrado"));
-        Cliente c1 = ClienteRepo.buscarPorId(solicituddto.getIdCliente()).orElseThrow(() -> new RecursoNoEncontradoException("cliente no encontrado"));
+        Tecnico t1 = this.TecnicoRepo.buscarPorId(solicituddto.getIdTecnico()).orElseThrow(() -> new RecursoNoEncontradoException("tecnico no encontrado"));
+        Cliente c1 = this.ClienteRepo.buscarPorId(solicituddto.getIdCliente()).orElseThrow(() -> new RecursoNoEncontradoException("cliente no encontrado"));
 
         existeSolicitud.setTitulo(solicituddto.getTitulo());
         existeSolicitud.setDescripcion(solicituddto.getDescripcion());
@@ -70,6 +71,7 @@ public class SolicitudService implements ISolicitudService{
 
     @Override
     public void eliminarSolicitud(Integer id) {
+        this.SolicitudRepo.buscarPorId(id).orElseThrow(()-> new RecursoNoEncontradoException("solicitud no encontrada"));
         this.SolicitudRepo.eliminar(id);
     }
 }
