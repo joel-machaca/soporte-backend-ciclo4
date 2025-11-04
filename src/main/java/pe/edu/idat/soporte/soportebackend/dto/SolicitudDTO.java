@@ -21,11 +21,11 @@ public class SolicitudDTO {
     private String descripcion;
 
 
-    @Valid
+
     @NotNull(message = "no puede estar vacio campo cliente")
     private Integer idCliente;
 
-    @Valid
+
     @NotNull(message = "no puede estar vacio campo tecnico")
     private Integer idTecnico;
 }
