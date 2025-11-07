@@ -63,8 +63,8 @@ src/
 1. Clonar el repositorio:
 
 ```bash
-git clone <ENLACE_DEL_REPOSITORIO>
-cd <NOMBRE_DEL_PROYECTO>
+git clone https://github.com/joel-machaca/soporte-backend-ciclo4.git
+cd soporte-backend-ciclo4
 ```
 
 2.Compilar y ejecutar
