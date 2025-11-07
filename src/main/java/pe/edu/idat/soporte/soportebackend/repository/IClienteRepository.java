@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface IClienteRepository {
+public interface IClienteRepository extends IGenericRepository<Cliente>{
 
-    Optional<Cliente> buscarPorId(Integer id);
+//    Optional<Cliente> buscarPorId(Integer id);
 
 }

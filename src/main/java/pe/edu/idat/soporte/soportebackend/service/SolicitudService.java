@@ -30,12 +30,12 @@ public class SolicitudService implements ISolicitudService{
     }
 
     @Override
-    public List<Solicitud> obtenerSolicitudes() {
+    public List<Solicitud> obtenerTodos() {
         return this.SolicitudRepo.buscarTodo();
     }
 
     @Override
-    public void registrarSolicitud(SolicitudDTO solicituddto) {
+    public void registrar(SolicitudDTO solicituddto) {
 
         Tecnico t1=TecnicoRepo.buscarPorId(solicituddto.getIdTecnico()).orElseThrow(()->new RecursoNoEncontradoException("tecnico no encontrado"));
         Cliente c1=ClienteRepo.buscarPorId(solicituddto.getIdCliente()).orElseThrow(()->new RecursoNoEncontradoException("cliente no encontrado"));
@@ -57,7 +57,7 @@ public class SolicitudService implements ISolicitudService{
     }
 
     @Override
-    public void actualizarSolicitud(Integer id,SolicitudDTO solicituddto) {
+    public void actualizar(Integer id,SolicitudDTO solicituddto) {
         Solicitud existeSolicitud=this.SolicitudRepo.buscarPorId(id).orElseThrow(()-> new RecursoNoEncontradoException("solicitud no encontrada"));
         Tecnico t1 = this.TecnicoRepo.buscarPorId(solicituddto.getIdTecnico()).orElseThrow(() -> new RecursoNoEncontradoException("tecnico no encontrado"));
         Cliente c1 = this.ClienteRepo.buscarPorId(solicituddto.getIdCliente()).orElseThrow(() -> new RecursoNoEncontradoException("cliente no encontrado"));
@@ -70,7 +70,7 @@ public class SolicitudService implements ISolicitudService{
     }
 
     @Override
-    public void eliminarSolicitud(Integer id) {
+    public void eliminar(Integer id) {
         this.SolicitudRepo.buscarPorId(id).orElseThrow(()-> new RecursoNoEncontradoException("solicitud no encontrada"));
         this.SolicitudRepo.eliminar(id);
     }

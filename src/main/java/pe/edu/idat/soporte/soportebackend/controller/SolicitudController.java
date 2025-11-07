@@ -1,5 +1,6 @@
 package pe.edu.idat.soporte.soportebackend.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/solicitud")
+@Tag(name="Solicitud",description = "operaciones de las solicitudes")
 public class SolicitudController{
 
     private final ISolicitudService ISolicitudService;
@@ -23,12 +25,12 @@ public class SolicitudController{
 
     @GetMapping
     public ResponseEntity<List<Solicitud>> obtenerSolicitudes(){
-        return ResponseEntity.ok(this.ISolicitudService.obtenerSolicitudes());
+        return ResponseEntity.ok(this.ISolicitudService.obtenerTodos());
     }
 
     @PostMapping
     public ResponseEntity<SolicitudDTO> registrarSolicitud(@Valid @RequestBody SolicitudDTO solicitud){
-        this.ISolicitudService.registrarSolicitud(solicitud);
+        this.ISolicitudService.registrar(solicitud);
         return ResponseEntity.status(HttpStatus.CREATED).body(solicitud);
     }
 
@@ -41,13 +43,13 @@ public class SolicitudController{
 
     @PutMapping("/{id}")
     public ResponseEntity<String> actualizarSolicitud( @PathVariable Integer id, @Valid @RequestBody SolicitudDTO solicitudDto){
-        this.ISolicitudService.actualizarSolicitud(id,solicitudDto);
+        this.ISolicitudService.actualizar(id,solicitudDto);
         return ResponseEntity.ok("se actualizo correctamente");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarSolicitud(@PathVariable Integer id){
-        this.ISolicitudService.eliminarSolicitud(id);
+        this.ISolicitudService.eliminar(id);
         return ResponseEntity.ok("solicitud eliminada ");
     }
 

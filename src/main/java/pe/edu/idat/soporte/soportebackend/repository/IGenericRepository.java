@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public interface IGenericRepository<T>{
     List<T> buscarTodo();
-    void guardar(T solicitud);
+    void guardar(T instancia);
     Optional<T> buscarPorId(Integer id);
-    void actualizar(T solicitud);
+    void actualizar(T instancia);
     void eliminar(Integer id);
 }

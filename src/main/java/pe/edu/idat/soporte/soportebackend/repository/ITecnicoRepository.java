@@ -6,6 +6,5 @@ import pe.edu.idat.soporte.soportebackend.model.Tecnico;
 import java.util.List;
 import java.util.Optional;
 
-public interface ITecnicoRepository {
-    Optional<Tecnico> buscarPorId(Integer id);
+public interface ITecnicoRepository extends IGenericRepository<Tecnico>{
 }
