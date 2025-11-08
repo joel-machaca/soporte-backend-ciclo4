@@ -12,6 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SolicitudDTO {
+
+
     @NotBlank(message = "el titulo es obligatorio")
     @Size(min = 3 ,max = 40, message = "El nombre debe tener entre 3 y 40 caracteres")
     private String titulo;
